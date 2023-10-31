@@ -1,2 +1,5 @@
-package PACKAGE_NAME;public class Servidor {
+public class Servidor {
+    public static void main(String[] args) {
+
+    }
 }
