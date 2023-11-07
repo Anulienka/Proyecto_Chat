@@ -14,26 +14,28 @@ public class Cliente {
         BufferedReader clienteEscribe = new BufferedReader(new InputStreamReader(System.in));
 
         //primero cliente introduce su username
-        System.out.println("Introduce username: ");
+        System.out.println("Introduce tu username: ");
         String username = clienteEscribe.readLine();
         bw.write(username);
         bw.newLine();
         bw.flush();
 
-        System.out.println("Puedes empezar a chatear :)");
-
         //luego escribe mensaje
-        while (true) {
-            String mensaje = clienteEscribe.readLine();
+        System.out.println("Puedes empezar a chatear :)");
+        String mensaje = " ";
+
+        do{
+            System.out.println("Introduce mensaje o fin para terminar:");
+            mensaje =clienteEscribe.readLine();
             String mensajeEnviar = username + ": " + mensaje;
-            bw.write(mensajeEnviar);
+            bw.write(mensajeEnviar);//envio cadena al servidor
             bw.newLine();
             bw.flush();
 
-            //llega mensaje de otros
-            String mensajeDeOtros = br.readLine();
-            System.out.println(mensajeDeOtros);
+            //recibo mensaje de otros clientes
+            String mensajeOtros = br.readLine();
+            System.out.println(mensajeOtros);
 
-        }
+        }while (!mensaje.equalsIgnoreCase("fin"));
     }
 }

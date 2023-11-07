@@ -29,7 +29,7 @@ public class HiloChat extends Thread {
 
         while (cliente.isConnected()) {
             try {
-                //que nos envia cliente
+                //que envia cliente
                 mensajeCliente = br.readLine();
                 enviarMensajeUsuarios(mensajeCliente);
 
