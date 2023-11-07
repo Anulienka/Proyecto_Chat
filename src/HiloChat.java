@@ -43,14 +43,12 @@ public class HiloChat extends Thread {
     }
 
     private void enviarMensajeUsuarios(String mensaje) throws IOException {
-        //escribe en chat que cliente ha entrado
+        //envio mensaje a usuarios del chat
         for (HiloChat c : clientes) {
-            //envio mensaje a resto de usuarios del chat
-            if(!c.nombreCliente.equals(this.nombreCliente)){
-                c.bw.write(mensaje);
-                c.bw.newLine();
-                c.bw.flush();
-            }
+
+            c.bw.write(mensaje);
+            c.bw.newLine();
+            c.bw.flush();
         }
     }
 }
