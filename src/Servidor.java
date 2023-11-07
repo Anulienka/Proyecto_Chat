@@ -5,13 +5,14 @@ import java.net.Socket;
 
 public class Servidor {
     public static void main(String[] args) throws IOException {
+
         ServerSocket servidor = new ServerSocket(4444);
         Socket cliente;
 
 
         while (true) {
             cliente = servidor.accept();
-            System.out.println("Nuevo cliente se ha conectado");
+            System.out.println("Nuevo cliente se ha conectado desde : " + cliente.getInetAddress());
             HiloChat hilo = new HiloChat(cliente);
             hilo.start();
         }

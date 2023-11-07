@@ -13,7 +13,7 @@ public class HiloChat extends Thread {
 
     public HiloChat(Socket cliente) throws IOException {
         this.cliente = cliente;
-        //cada clienmte tiene su flujo de entrada y salida
+        //cada cliente tiene su flujo de entrada y salida
         this.br = new BufferedReader(new InputStreamReader(cliente.getInputStream()));
         this.bw = new BufferedWriter(new OutputStreamWriter(cliente.getOutputStream()));
         //nombre del cliente que escribe desde consola
