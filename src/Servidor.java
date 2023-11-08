@@ -5,6 +5,8 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 /**
+ * @author Anna
+ *
  * La clase Servidor escucha y acepta conexiones de múltiples clientes.
  */
 

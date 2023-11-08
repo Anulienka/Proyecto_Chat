@@ -6,6 +6,8 @@ import java.io.*;
 import java.net.Socket;
 
 /**
+ * @author Anna
+ *
  * La clase Cliente representa un cliente en la aplicación de chat
  * Se conecta al servidor y permite a usuario enviar mensaje a otros clientes y recibir mensajes de otros clientes.
  */
@@ -61,6 +63,7 @@ public class Cliente {
 
     /**
      * Cierra los flujos y la conexión del cliente.
+     *
      * @param cliente El socket de conexión del cliente.
      * @param bw El BufferedWriter.
      * @param br El BufferedReader.

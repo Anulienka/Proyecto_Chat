@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 /**
+ * @author Anna
+ *
  * La clase HiloServidor representa un hilo que gestiona conexiones de clientes que estan en chat.
  * En esta clase se encuentra la lista de todos los clientes que están en chat
  * Añade cliente con su username a lista de clientes
@@ -25,7 +27,9 @@ public class HiloServidor extends Thread {
 
 
     /**
+     *
      * Constructor de la clase HiloServidor.
+     *
      * @param cliente El socket de conexión del cliente.
      * @throws IOException Si hay un error al establecer flujos de entrada y salida.
      */
@@ -71,6 +75,7 @@ public class HiloServidor extends Thread {
 
     /**
      * Envía un mensaje a todos los usuarios en el chat, excepto al usuario que escribe el mensaje.
+     *
      * @param mensaje El mensaje que se envia a usuarios.
      */
     private void enviarMensajeUsuarios(String mensaje) {
@@ -93,6 +98,7 @@ public class HiloServidor extends Thread {
     /**
      * Elimina al cliente del chat y notifica a otros usuarios que ha salido.
      * Cierra los flujos y la conexión del cliente.
+     *
      * @param cliente El socket de conexión del cliente.
      * @param bw El BufferedWriter.
      * @param br El BufferedReader.
