@@ -15,9 +15,12 @@ public class HiloCliente extends Thread{
     @Override
     public void run() {
         String mensajeRecibido;
+        //hasta que el cliente no se desconecte cerrando ventana del chat recibe mensajes de otros clientes
         while (cliente.isConnected()){
             try {
+                //mensaje de otros clientes
                 mensajeRecibido = br.readLine();
+                //imprime mensaje por pantalla
                 System.out.println(mensajeRecibido);
             } catch (IOException e) {
                 cierraFlujos(cliente, br);

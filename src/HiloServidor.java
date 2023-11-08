@@ -12,10 +12,11 @@ public class HiloServidor extends Thread {
     private BufferedWriter bw;
 
     public HiloServidor(Socket cliente) throws IOException {
-
         this.cliente = cliente;
         //cada cliente tiene su flujo de entrada y salida
+        //br- servidor lee que escribe cliente
         this.br = new BufferedReader(new InputStreamReader(cliente.getInputStream()));
+        //bw- desde servidor se envia mensaje de cliente a otros clientes
         this.bw = new BufferedWriter(new OutputStreamWriter(cliente.getOutputStream()));
         //nombre del cliente que escribe desde consola
         this.nombreCliente = br.readLine();
@@ -29,6 +30,7 @@ public class HiloServidor extends Thread {
     public void run() {
         String mensajeCliente = "";
 
+        //hasta que el cliente no se desconecte cerrando ventana del chat escribe mensajes a otros clientes
         while (cliente.isConnected()) {
             try {
                 //lee que envia cliente
@@ -44,35 +46,35 @@ public class HiloServidor extends Thread {
         }
     }
 
-    private void enviarMensajeUsuarios(String mensaje){
+    private void enviarMensajeUsuarios(String mensaje) {
         //envio mensaje a usuarios del chat
         for (HiloServidor c : clientes) {
             try {
-                if(c.nombreCliente != nombreCliente){
+                if (c.nombreCliente != nombreCliente) {
                     //envia mensaje
-                c.bw.write(mensaje);
-                c.bw.newLine();
-                c.bw.flush();
-            }
+                    c.bw.write(mensaje);
+                    c.bw.newLine();
+                    c.bw.flush();
+                }
             } catch (IOException e) {
-                //si algo va mal, se cierran todos los flujos y se sale del bucle while, porque cliente ya no esta conectado
+                //si algo va mal, se cierran todos los flujos porque cliente ya no esta conectado
                 cierraFlujos(cliente, bw, br);
             }
         }
     }
 
-    private void cierraFlujos(Socket cliente, BufferedWriter bw, BufferedReader br)  {
+    private void cierraFlujos(Socket cliente, BufferedWriter bw, BufferedReader br) {
         //primero elimino cliente del chat
         eliminarClienteDelChat();
         //luego cierro flujos
         try {
-            if(br != null){
+            if (br != null) {
                 br.close();
             }
-            if(bw != null){
+            if (bw != null) {
                 bw.close();
             }
-            if(cliente != null){
+            if (cliente != null) {
                 cliente.close();
             }
         } catch (IOException e) {
@@ -80,12 +82,11 @@ public class HiloServidor extends Thread {
         }
     }
 
-    private void eliminarClienteDelChat(){
+    private void eliminarClienteDelChat() {
         //elimina cliente si ha salido del chat
         clientes.remove(this);
         //envia mensaje a otros usuarios
         enviarMensajeUsuarios(nombreCliente + " ha salido del chat.");
-
     }
 
 }
