@@ -5,6 +5,11 @@ import java.awt.event.ActionListener;
 import java.io.*;
 import java.net.Socket;
 
+/**
+ * La clase Cliente representa un cliente en la aplicación de chat
+ * Se conecta al servidor y permite a usuario enviar mensaje a otros clientes y recibir mensajes de otros clientes.
+ */
+
 public class Cliente {
 
     public static void main(String[] args) throws IOException {
@@ -12,7 +17,6 @@ public class Cliente {
         int puerto = 4444;
 
         Socket cliente = new Socket(host, puerto);
-        String clienteNombre;
 
         //flujo de entrada y salida
         BufferedReader br = new BufferedReader(new InputStreamReader(cliente.getInputStream()));
@@ -25,9 +29,9 @@ public class Cliente {
 
 
         //primero cliente introduce su username
-        System.out.println("Introduce tu username: ");
+        System.out.println("Introduce tu nombre: ");
         String username = clienteEscribe.readLine();
-        //enviamos nombre de usuario (eso recoge hilo servisor, que lee mensajes de clientes y lo utiliza para crear hiloServidor)
+        //enviamos nombre de usuario (eso recoge hilo servidor)
         bw.write(username);
         bw.newLine();
         bw.flush();
@@ -36,9 +40,9 @@ public class Cliente {
         System.out.println("Puedes empezar a chatear :)");
         String mensaje = " ";
 
-        try {
-            //hasta que cliente no sale del chat puede enviar mensajes
-            while (cliente.isConnected()) {
+        //hasta que cliente no sale del chat puede enviar mensajes
+        while (cliente.isConnected()) {
+            try {
                 //System.out.println("Introduce mensaje o fin para terminar:");
                 mensaje = clienteEscribe.readLine();
                 String mensajeEnviar = username.toUpperCase() + ": " + mensaje;
@@ -47,14 +51,20 @@ public class Cliente {
                 bw.write(mensajeEnviar);
                 bw.newLine();
                 bw.flush();
-            }
-        } catch (IOException e) {
+
+        } catch(IOException e){
             //cerrar streams y conexiones
             cierraFlujos(cliente, bw, br);
         }
-
     }
+}
 
+    /**
+     * Cierra los flujos y la conexión del cliente.
+     * @param cliente El socket de conexión del cliente.
+     * @param bw El BufferedWriter.
+     * @param br El BufferedReader.
+     */
     private static void cierraFlujos(Socket cliente, BufferedWriter bw, BufferedReader br) {
         //cierro flujos
         try {
