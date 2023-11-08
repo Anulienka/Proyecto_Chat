@@ -1,4 +1,3 @@
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -13,7 +12,7 @@ public class Servidor {
         while (true) {
             cliente = servidor.accept();
             System.out.println("Nuevo cliente se ha conectado desde : " + cliente.getInetAddress());
-            HiloChat hilo = new HiloChat(cliente);
+            HiloServidor hilo = new HiloServidor(cliente);
             hilo.start();
         }
     }
