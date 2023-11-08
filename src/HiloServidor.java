@@ -33,6 +33,7 @@ public class HiloServidor extends Thread {
             clientes.add(this);
             //en constructor ponemos y mensaje que un cliente ha entrado en chat, este mensaje se envia una vez
             enviarMensajeUsuarios(nombreCliente + " ha entrado en chat.");
+
         } catch (IOException e) {
             //si algo va mal, se cierran streams y conexiones y se sale del bucle while, porque cliente ya no esta conectado
             cierraFlujos(cliente, bw, br);

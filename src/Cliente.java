@@ -1,3 +1,7 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.*;
 import java.net.Socket;
 
@@ -8,6 +12,7 @@ public class Cliente {
         int puerto = 4444;
 
         Socket cliente = new Socket(host, puerto);
+        String clienteNombre;
 
         //flujo de entrada y salida
         BufferedReader br = new BufferedReader(new InputStreamReader(cliente.getInputStream()));
@@ -33,9 +38,9 @@ public class Cliente {
 
         try {
             //hasta que cliente no sale del chat puede enviar mensajes
-            while (cliente.isConnected()){
+            while (cliente.isConnected()) {
                 //System.out.println("Introduce mensaje o fin para terminar:");
-                mensaje =clienteEscribe.readLine();
+                mensaje = clienteEscribe.readLine();
                 String mensajeEnviar = username.toUpperCase() + ": " + mensaje;
                 System.out.println(mensajeEnviar);
                 //envio cadena al servidor
@@ -47,19 +52,19 @@ public class Cliente {
             //cerrar streams y conexiones
             cierraFlujos(cliente, bw, br);
         }
-        
+
     }
 
-    private static void cierraFlujos(Socket cliente, BufferedWriter bw, BufferedReader br)  {
+    private static void cierraFlujos(Socket cliente, BufferedWriter bw, BufferedReader br) {
         //cierro flujos
         try {
-            if(br != null){
+            if (br != null) {
                 br.close();
             }
-            if(bw != null){
+            if (bw != null) {
                 bw.close();
             }
-            if(cliente != null){
+            if (cliente != null) {
                 cliente.close();
             }
         } catch (IOException e) {
