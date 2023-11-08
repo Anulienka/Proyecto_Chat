@@ -44,6 +44,7 @@ public class Cliente {
                 bw.flush();
             }
         } catch (IOException e) {
+            //cerrar streams y conexiones
             cierraFlujos(cliente, bw, br);
         }
         

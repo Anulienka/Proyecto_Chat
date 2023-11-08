@@ -23,6 +23,7 @@ public class HiloCliente extends Thread{
                 //imprime mensaje por pantalla
                 System.out.println(mensajeRecibido);
             } catch (IOException e) {
+                //cerrar streams y conexiones
                 cierraFlujos(cliente, br);
             }
         }
