@@ -36,9 +36,10 @@ public class HiloCliente extends Thread{
                 System.out.println(mensajeRecibido);
             } catch (IOException e) {
                 //cerrar streams y conexiones
-                cierraFlujos(cliente, br);
+                e.printStackTrace();
             }
         }
+        cierraFlujos(cliente, br);
     }
 
 

@@ -51,7 +51,10 @@ public class HiloServidor extends Thread {
 
         } catch (IOException e) {
             //si algo va mal, se cierran streams y conexiones, porque cliente ya no esta conectado
+            e.printStackTrace();
             cierraFlujos(cliente, bw, br);
+            //sale de metodo run()
+            return;
         }
 
 
@@ -62,15 +65,20 @@ public class HiloServidor extends Thread {
             try {
                 //lee que envia cliente
                 mensajeCliente = br.readLine();
+                // Sale del bucle si el cliente se desconectó.
+                if (mensajeCliente == null) {
+                    //sale de while
+                    break;
+                }
                 //envia mensajes a otros clientes
                 enviarMensajeUsuarios(mensajeCliente);
 
             } catch (IOException e) {
                 //si algo va mal, se cierran streams y conexiones y se sale del bucle while, porque cliente ya no esta conectado
-                cierraFlujos(cliente, bw, br);
-                break;
+                e.printStackTrace();
             }
         }
+        cierraFlujos(cliente, bw, br);
     }
 
     /**
@@ -90,7 +98,7 @@ public class HiloServidor extends Thread {
                 }
             } catch (IOException e) {
                 //si algo va mal, se cierran todos los flujos porque cliente ya no esta conectado
-                cierraFlujos(cliente, bw, br);
+                e.printStackTrace();
             }
         }
     }
@@ -127,9 +135,11 @@ public class HiloServidor extends Thread {
      */
     private void eliminarClienteDelChat() {
         //elimina cliente si ha salido del chat
-        clientes.remove(this);
-        //envia mensaje a otros usuarios
-        enviarMensajeUsuarios(nombreCliente + " ha salido del chat.");
+        if (clientes.contains(this)) {
+            clientes.remove(this);
+            //envia mensaje a otros usuarios
+            enviarMensajeUsuarios(nombreCliente + " ha salido del chat.");
+        }
     }
 
 }

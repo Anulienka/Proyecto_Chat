@@ -8,7 +8,6 @@ import java.net.Socket;
  * La clase Cliente representa un cliente en la aplicación de chat
  * Se conecta al servidor y permite a usuario enviar mensaje a otros clientes y recibir mensajes de otros clientes.
  */
-
 public class Cliente {
 
     public static void main(String[] args) throws IOException {
@@ -53,9 +52,10 @@ public class Cliente {
 
         } catch(IOException e){
             //cerrar streams y conexiones
-            cierraFlujos(cliente, bw, br);
+                e.printStackTrace();
         }
     }
+        cierraFlujos(cliente, bw, br);
 }
 
     /**
